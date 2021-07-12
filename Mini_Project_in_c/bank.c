@@ -553,7 +553,7 @@ void menu()
         case 2: edit(); break;
         case 3: transact(); break;
         case 4: see(); break;
-        //case 5: erase(); break;
+        case 5: erase(); break;
         case 6: view_list(); break;
         case 7: close(); break;
     }
