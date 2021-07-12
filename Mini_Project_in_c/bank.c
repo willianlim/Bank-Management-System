@@ -235,7 +235,49 @@ void transact()
     old = fopen("record.dat", "r");
     newrec = fopen("new.dat", "w");
 
-    printf("");
+    printf("Enter the account no. of the customer: ");
+    scanf("%d", &transaction.acc_no);
+
+    while (fscanf(old, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d",&add.acc_no,add.name,&add.dob.month,&add.dob.day,&add.dob.year,&add.age,add.address,add.citizenship,&add.phone,add.acc_type,&add.amt,&add.deposit.month,&add.deposit.day,&add.deposit.year) != EOF)
+    {
+        if(add.acc_no == transaction.acc_no)
+        {
+            test = 1;
+
+            if(strcmp(add.acc_type, "fixed1") == 0 || strcmp(add.acc_type, "fixed2") == 0 || strcmp(add.acc_type, "fixed3") == 0)
+            {
+                printf("\a\a\a\n\nYOU CANNOT DEPOSIT OR WITHDRAW CASH IN FIXED ACCOUNTS!!!");
+                fordelay(1000000000);
+                system("clear");
+                menu();
+            }
+            printf("\n\nDo you want to\n1.Deposit\n2.Withdraw?\n\nEnter your choice(1 for deposit and 2 withdraw): ");
+            scanf("%d", &choice);
+
+            if(choice == 1)
+            {
+                printf("Enter the amount you want to deposit:$ ");
+                scanf("%f", &transaction.amt);
+                add.amt += transaction.amt;
+                fprintf(newrec, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d", add.acc_no,add.name,add.dob.month,add.dob.day,add.dob.year,add.age,add.address,add.citizenship,add.phone,add.acc_type,add.amt,add.deposit.month,add.deposit.day,add.deposit.year);
+            }
+            else
+            {
+                printf("Enter the amount you want to withdraw:$ ");
+                scanf("%f", &transaction.amt);
+                add.amt -= transaction.amt;
+                fprintf(newrec, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d",add.acc_no,add.name,add.dob.month,add.dob.day,add.dob.year,add.age,add.address,add.citizenship,add.phone,add.acc_type,add.amt,add.deposit.month,add.deposit.day,add.deposit.year);
+                printf("\n\nWithdrawn successfully!");
+            }
+        }
+        else
+            fprintf(newrec, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d",add.acc_no,add.name,add.dob.month,add.dob.day,add.dob.year,add.age,add.address,add.citizenship,add.phone,add.acc_type,add.amt,add.deposit.month,add.deposit.day,add.deposit.year);
+        
+        break;
+    }
+    fclose(old);
+    fclose(newrec);
+    
 }
 
 void close()
@@ -258,7 +300,7 @@ void menu()
     {
         case 1: new_acc(); break;
         case 2: edit(); break;
-        //case 3: transact(); break;
+        case 3: transact(); break;
         //case 4: see(); break;
         //case 5: erase(); break;
         case 6: view_list(); break;
