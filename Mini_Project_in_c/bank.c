@@ -228,6 +228,16 @@ void edit()
     }
 }
 
+void transact()
+{
+    int choice, test = 0;
+    FILE *old, *newrec;
+    old = fopen("record.dat", "r");
+    newrec = fopen("new.dat", "w");
+
+    printf("");
+}
+
 void close()
 {
     printf("\n\n\n\nThis C Mini Project is developed by Code With C team!\n");
